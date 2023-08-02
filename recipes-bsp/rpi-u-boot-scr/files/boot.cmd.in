@@ -1,0 +1,27 @@
+# fatload mmc 0:1 ${kernel_addr_r} @@KERNEL_IMAGETYPE@@
+# if test ! -e mmc 0:1 uboot.env; then saveenv; fi;
+
+
+# setenv silent yes
+
+fdt addr ${fdt_addr} && fdt get value bootargs /chosen bootargs
+# if fback is not defined yet, boot from 2 partition as default
+if test x${fback} != x; then
+    boot_part=${fback}
+else
+    boot_part=2
+fi
+
+# Boot once into new system after update
+if test x${next_entry} != x; then
+    boot_part=${next_entry}
+    setenv next_entry
+fi
+
+saveenv
+
+setenv bootargs "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_headphones=0 bcm2708_fb.fbwidth=656 bcm2708_fb.fbheight=416 bcm2708_fb.fbswap=1 smsc95xx.macaddr=B8:27:EB:A7:0F:85 vc_mem.mem_base=0x1ec00000 vc_mem.mem_size=0x20000000 dwc_otg.lpm_enable=0 console=ttyS0,115200 root=/dev/mmcblk0p${boot_part} rootfstype=ext4 rootwait loglevel=3"
+
+# ext4load mmc 0:${boot_part} ${fdt_addr_r} /boot/${fdtfile}
+ext4load mmc 0:${boot_part} ${kernel_addr_r} /boot/@@KERNEL_IMAGETYPE@@
+@@KERNEL_BOOTCMD@@ ${kernel_addr_r} - ${fdt_addr}

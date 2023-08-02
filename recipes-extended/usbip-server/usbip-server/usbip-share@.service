@@ -1,0 +1,7 @@
+[Unit]
+Description=USBIP service to share an USB device through network
+Wants=usbipd.service
+
+[Service]
+Type=oneshot
+ExecStart=usbip bind -b %i

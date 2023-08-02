@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="usb", KERNEL=="1-1", TAG+="systemd", ENV{SYSTEMD_WANTS}+="usbip-share@1-1.service"

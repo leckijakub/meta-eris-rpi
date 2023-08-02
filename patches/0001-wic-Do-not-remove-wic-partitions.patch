@@ -1,0 +1,49 @@
+From 6c704900c03efbecf9d96b4e1501d384b1d649da Mon Sep 17 00:00:00 2001
+From: Jakub Lecki <lec.jakub@gmail.com>
+Date: Tue, 6 Jun 2023 01:04:11 +0200
+Subject: [PATCH] wic: Do not remove wic partitions.
+
+WIC partitions will be used to create .swu files for swupdate feature.
+---
+ meta/classes-recipe/image_types_wic.bbclass | 10 +++++++++-
+ scripts/lib/wic/plugins/imager/direct.py    |  3 +--
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/meta/classes-recipe/image_types_wic.bbclass b/meta/classes-recipe/image_types_wic.bbclass
+index be31fbf94fee..aba76bc2d89e 100644
+--- a/meta/classes-recipe/image_types_wic.bbclass
++++ b/meta/classes-recipe/image_types_wic.bbclass
+@@ -71,7 +71,15 @@ IMAGE_CMD:wic () {
+ 		bbfatal "No kickstart files from WKS_FILES were found: ${WKS_FILES}. Please set WKS_FILE or WKS_FILES appropriately."
+ 	fi
+ 	BUILDDIR="${TOPDIR}" PSEUDO_UNLOAD=1 wic create "$wks" --vars "${STAGING_DIR}/${MACHINE}/imgdata/" -e "${IMAGE_BASENAME}" -o "$build_wic/" -w "$tmp_wic" ${WIC_CREATE_EXTRA_ARGS}
+-	mv "$build_wic/$(basename "${wks%.wks}")"*.direct "$out${IMAGE_NAME_SUFFIX}.wic"
++	wks_basename="$(basename "${wks%.wks}")"
++	mv "$build_wic/$wks_basename"*.direct "$out${IMAGE_NAME_SUFFIX}.wic"
++	for partition in "$build_wic/$wks_basename"*.direct.p2; do
++		partition_basename="$(basename "$partition")"
++		ext="${partition_basename##*.}"
++		gzip -f -9 -k "$partition"
++		partition_image_basename="${IMAGE_BASENAME}-${MACHINE}".direct."$ext"
++		mv "$partition".gz "${DEPLOY_DIR_IMAGE}/$partition_image_basename".gz
++	done
+ }
+ IMAGE_CMD:wic[vardepsexclude] = "WKS_FULL_PATH WKS_FILES TOPDIR"
+ do_image_wic[cleandirs] = "${WORKDIR}/build-wic"
+diff --git a/scripts/lib/wic/plugins/imager/direct.py b/scripts/lib/wic/plugins/imager/direct.py
+index 55347f5480ae..f51ae05f839a 100644
+--- a/scripts/lib/wic/plugins/imager/direct.py
++++ b/scripts/lib/wic/plugins/imager/direct.py
+@@ -270,8 +270,7 @@ class DirectPlugin(ImagerPlugin):
+                     return "/dev/%s%s%-d" % (part.disk, suffix, part.realnum)
+
+     def cleanup(self):
+-        if self._image:
+-            self._image.cleanup()
++        logger.info("Intentionally disabled removing partition images.")
+
+         # Move results to the output dir
+         if not os.path.exists(self.outdir):
+--
+2.40.1
+
