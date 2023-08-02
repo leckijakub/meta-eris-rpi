@@ -4,7 +4,7 @@ header:
 machine: raspberrypi0-wifi
 distro: zoomy
 target:
-  - core-image-base
+  - image-eris-beacon
 
 repos:
   meta-eris-rpi:

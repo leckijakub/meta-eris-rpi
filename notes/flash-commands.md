@@ -2,7 +2,7 @@
 
 ```linux
 sudo umount /dev/sda*
-sudo bmaptool copy --bmap core-image-base-raspberrypi0-wifi.wic.bmap core-image-base-raspberrypi0-wifi.wic.bz2 /dev/sda
+sudo bmaptool copy --bmap image-eris-beacon-raspberrypi0-wifi.wic.bmap image-eris-beacon-raspberrypi0-wifi.wic.bz2 /dev/sda
 sudo umount /dev/sda*
 ```
 
