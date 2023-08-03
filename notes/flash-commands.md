@@ -2,7 +2,7 @@
 
 ```linux
 sudo umount /dev/sda*
-sudo bmaptool copy --bmap image-eris-beacon-raspberrypi0-wifi.wic.bmap image-eris-beacon-raspberrypi0-wifi.wic.bz2 /dev/sda
+sudo bmaptool copy --bmap image-eris-beacon-eris-beacon-baseboard.wic.bmap image-eris-beacon-eris-beacon-baseboard.wic.bz2 /dev/sda
 sudo umount /dev/sda*
 ```
 
@@ -11,7 +11,7 @@ sudo umount /dev/sda*
 ### locally
 
 ```linux
-sudo cp core-image-base-swu-raspberrypi0-wifi.swu /media/jale/data/
+sudo cp image-eris-beacon-swu-eris-beacon-baseboard.swu /media/jale/data/
 sudo umount /dev/sda*
 ```
 
@@ -19,13 +19,13 @@ sudo umount /dev/sda*
 
 ```linux
 ssh-keygen -f "/home/jale/.ssh/known_hosts" -R "192.168.0.21"
-scp core-image-base-swu-raspberrypi0-wifi.swu root@192.168.0.21:/data/
+scp image-eris-beacon-swu-eris-beacon-baseboard.swu root@192.168.0.21:/data/
 ```
 
 ## start update
 
 ```rpi
-swupdate -e "raspberrypi0-wifi,mmcblk0p3" -i /data/core-image-base-swu-raspberrypi0-wifi.swu -v
+swupdate -e "eris-beacon-baseboard,mmcblk0p3" -i /data/image-eris-beacon-swu-eris-beacon-baseboard.swu -v
 ```
 
 ## connect USBIP

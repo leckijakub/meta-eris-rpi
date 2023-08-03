@@ -13,15 +13,15 @@ SRC_URI = " \
 
 # images to build before building swupdate image
 IMAGE_DEPENDS = " \
-    core-image-base \
+    image-eris-beacon \
     "
 
 # images and files that will be included in the .swu image
 SWUPDATE_IMAGES = " \
-    core-image-base \
+    image-eris-beacon \
     "
 
 # a deployable image can have multiple format, choose one
-SWUPDATE_IMAGES_FSTYPES[core-image-base] = ".direct.p2.gz"
+SWUPDATE_IMAGES_FSTYPES[image-eris-beacon] = ".direct.p2.gz"
 
 inherit swupdate

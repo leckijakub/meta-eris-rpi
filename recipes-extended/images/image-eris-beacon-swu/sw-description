@@ -2,16 +2,16 @@ software =
 {
         version = "@@DISTRO_VERSION@@";
 
-        raspberrypi0-wifi:
+        upgrade:
         {
                 mmcblk0p2:
                 {
                         images: (
                         {
-                                filename = "core-image-base-raspberrypi0-wifi.direct.p2.gz";
+                                filename = "image-eris-beacon-eris-beacon-baseboard.direct.p2.gz";
                                 device = "/dev/mmcblk0p2";
                                 installed-directly = TRUE;
-                                compressed = TRUE;
+                                compressed = "zlib";
                         }
                         );
                         bootenv: (
@@ -29,10 +29,10 @@ software =
                 {
                         images: (
                         {
-                                filename = "core-image-base-raspberrypi0-wifi.direct.p2.gz";
+                                filename = "image-eris-beacon-eris-beacon-baseboard.direct.p2.gz";
                                 device = "/dev/mmcblk0p3";
                                 installed-directly = TRUE;
-                                compressed = TRUE;
+                                compressed = "zlib";
                         }
                         );
                         bootenv: (

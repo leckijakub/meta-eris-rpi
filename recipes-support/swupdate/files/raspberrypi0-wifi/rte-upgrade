@@ -92,10 +92,10 @@ upgradeFromFile() {
     checkCurrentPartition
     local current_part=$?
     if [ $current_part -eq 2 ]; then
-        swupdate -e "rte,$PART3" -i $swu_file -v
+        swupdate -e "upgrade,$PART3" -i $swu_file -v
         errorCheck "SWUpdate failed"
     elif [ $current_part -eq 3 ]; then
-        swupdate -e "rte,$PART2" -i $swu_file -v
+        swupdate -e "upgrade,$PART2" -i $swu_file -v
         errorCheck "SWUpdate failed"
     else
         echo "Unexpected rootfs partition"
