@@ -6,4 +6,4 @@ Wants=usbipd.service
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=usbip bind -b %i
-ExecStop=usbip unbind -b %i
+ExecStop=-usbip unbind -b %i

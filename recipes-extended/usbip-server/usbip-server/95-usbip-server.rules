@@ -1,1 +1,2 @@
-ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTRS{idVendor}=="1915", TAG+="systemd", ENV{SYSTEMD_WANTS}+="usbip-share@%k.service"
+KERNEL=="[0-9]-[0-9].[0-9]", SUBSYSTEM=="usb", DRIVER=="usb", ATTRS{idVendor}=="1915", ACTION=="add", RUN+="/bin/systemctl start usbip-share@%k.service"
+KERNEL=="[0-9]-[0-9].[0-9]", SUBSYSTEM=="usb", ACTION=="remove", RUN+="/bin/systemctl stop usbip-share@%k.service"
