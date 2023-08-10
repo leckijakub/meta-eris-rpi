@@ -20,7 +20,7 @@ index be31fbf94fee..aba76bc2d89e 100644
 -	mv "$build_wic/$(basename "${wks%.wks}")"*.direct "$out${IMAGE_NAME_SUFFIX}.wic"
 +	wks_basename="$(basename "${wks%.wks}")"
 +	mv "$build_wic/$wks_basename"*.direct "$out${IMAGE_NAME_SUFFIX}.wic"
-+	for partition in "$build_wic/$wks_basename"*.direct.p2; do
++	for partition in "$build_wic/$wks_basename"*.direct.p*; do
 +		partition_basename="$(basename "$partition")"
 +		ext="${partition_basename##*.}"
 +		gzip -f -9 -k "$partition"

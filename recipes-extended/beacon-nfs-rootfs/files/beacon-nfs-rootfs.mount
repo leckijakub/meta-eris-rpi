@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount beacon nfs rootfs partition
+
+[Mount]
+What=/data/image-eris-beacon-eris-beacon-baseboard.ext4
+Where=/nfs/exports/beacon_root
+Type=ext4
+Options=ro,noatime
+
+[Install]
+WantedBy=multi-user.target

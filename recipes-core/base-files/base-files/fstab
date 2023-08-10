@@ -1,4 +1,1 @@
-/dev/root            /                    auto       defaults              1  1
-
-/dev/mmcblk0p1       /boot/bootpart       vfat       defaults              0  0
-/dev/mmcblk0p4       /data                ext4       defaults              0  0
+/dev/root            /                    auto       ro              1  1

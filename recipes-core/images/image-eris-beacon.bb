@@ -4,4 +4,6 @@ LICENSE = "MIT"
 
 inherit core-image
 
-IMAGE_INSTALL += "minicom usbip-server swupdate u-boot-env sshd dhcpcd python3-nrfutil systemd-analyze"
+IMAGE_INSTALL += "minicom usbip-server openssh-sshd python3-nrfutil systemd-analyze"
+
+IMAGE_FEATURES += "read-only-rootfs"

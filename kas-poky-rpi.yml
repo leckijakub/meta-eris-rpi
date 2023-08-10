@@ -5,6 +5,7 @@ machine: eris-beacon-baseboard
 distro: zoomy
 target:
   - image-eris-beacon
+  - image-eris-beacon-swu
 
 repos:
   meta-eris-rpi:
