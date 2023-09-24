@@ -1,12 +1,13 @@
+# set kernel load address
 setenv loadaddr ${kernel_addr_r}
-setenv bootfile uImage
-setenv bootserverip 192.168.0.25
 
-dhcp ${bootserverip}:${bootfile}
+# get ip address and download kernel image
+dhcp
 
 #debug cmdline:
-# setenv bootargs "8250.nr_uarts=1 dwc_otg.lpm_enable=0 console=ttyS0,115200 root=/dev/nfs rw nfsroot=${bootserverip}:/nfs/exports/beacon_root,nfsvers=3 ip=dhcp rootfstype=nfs loglevel=8 earlycon=uart8250,mmio32,0x20215040"
+#setenv bootargs "8250.nr_uarts=1 dwc_otg.lpm_enable=0 console=ttyS0,115200 root=/dev/nfs rw nfsroot=${serverip}:/srv/nfs/exports/beacon_root,nfsvers=3 ip=dhcp rootfstype=nfs loglevel=8 earlycon=uart8250,mmio32,0x20215040"
 
-setenv bootargs "8250.nr_uarts=1 dwc_otg.lpm_enable=0 console=ttyS0,115200 root=/dev/nfs ro nfsroot=${bootserverip}:/nfs/exports/beacon_root,nfsvers=3 ip=dhcp rootfstype=nfs loglevel=3"
+setenv bootargs "8250.nr_uarts=1 dwc_otg.lpm_enable=0 console=ttyS0,115200 root=/dev/nfs ro nfsroot=${serverip}:/srv/nfs/exports/beacon_root,nfsvers=3 ip=dhcp rootfstype=nfs loglevel=3"
 
+# boot the system
 bootm ${kernel_addr_r} - ${fdt_addr}
